@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Result Checker</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Student Result Checker</h1>
+        <form method="POST">
+            <input type="text" name="student_id" placeholder="Enter Student ID" required>
+            <button type="submit">Check Result</button>
+        </form>
+        
+        {% if result %}
+            <div class="result-box">
+                {% if result == "Student ID not found!" %}
+                    <p class="error">{{ result }}</p>
+                {% else %}
+                    <h2>Result for {{ result.name }}</h2>
+                    <p><strong>Age:</strong> {{ result.age }}</p>
+                    <p><strong>City:</strong> {{ result.city }}</p>
+                    <h3>Marks:</h3>
+                    <ul>
+                        {% for subject, marks in result.marks.items() %}
+                            <li><strong>{{ subject }}:</strong> {{ marks }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>
